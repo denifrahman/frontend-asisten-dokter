@@ -1,0 +1,127 @@
+<ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
+<ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Bantuan'"></ng-keyboard-shortcuts-help>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand">Asisten Saya</a>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent" aria-expanded="false" aria-hidden="true" style="display: none;">
+                                <ul class="navbar-nav mr-auto">
+                                    <span class="ml-2 mr-2">Limit :</span>
+                                    <select (change)="changeRowLimits($event)">
+                                        <option *ngFor="let limit of rowLimits" [value]="limit.value">{{limit.key}}</option>
+                                    </select>
+                                </ul>
+                                <div class="col-3">
+                                    <div class="input-group">
+                                        <input class="form-control" id="appendedInputButton" placeholder="Cari ..." type="search" (keypress)="filter($event)" [(ngModel)]="page.q">
+                                        <span class="input-group-append">
+                                            <button class="btn btn-outline-success my-2 my-sm-0" (click)="filter('find')" type="submit">Cari</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <button type="btn" class="btn btn-primary ml-2" (click)="tambah()">Tambah</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ngx-datatable class="material" [rows]="rows" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true" [selected]="selected" [loadingIndicator]="loading" [selectionType]="SelectionType.multi" [rowHeight]="50" (activate)="onActivate($event)" [externalPaging]="true" [count]="[count]" [offset]="page.offset" [limit]="page.limit" (page)="findPerPage($event)" (select)="onSelect($event)">
+                        <ngx-datatable-column name="No" maxWidth=10>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex">
+                                {{page.offset + rowIndex + 1 | number}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Nama" prop="nama">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                <span title="Double click to edit" (dblclick)="editing[rowIndex + '-nama'] = true" *ngIf="!editing[rowIndex + '-nama']">
+                                    {{ value }}
+                                </span>
+                                <input class="form-control" autofocus (blur)="updateValue($event, 'nama', rowIndex)" *ngIf="editing[rowIndex + '-nama']" type="text" [value]="value" />
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Email" prop="email">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                <span title="Double click to edit" (dblclick)="editing[rowIndex + '-email'] = true" *ngIf="!editing[rowIndex + '-email']">
+                                    {{ value == ''? '-': value }}
+                                </span>
+                                <input class="form-control" autofocus (blur)="updateValue($event, 'email', rowIndex)" *ngIf="editing[rowIndex + '-email']" type="text" [value]="value" />
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Telpon" prop="no_telp">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                <span title="Double click to edit" (dblclick)="editing[rowIndex + '-no_telp'] = true" *ngIf="!editing[rowIndex + '-no_telp']">
+                                    {{ value == ''? '-': value }}
+                                </span>
+                                <input class="form-control" autofocus (blur)="updateValue($event, 'no_telp', rowIndex)" *ngIf="editing[rowIndex + '-no_telp']" type="text" [value]="value" />
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Status" prop="aktif">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                                <span title="Double click to edit" (dblclick)="editing[rowIndex + '-aktif'] = true" *ngIf="!editing[rowIndex + '-aktif']">
+                                    <div [ngClass]="value == 1 ? 'badge badge-pill text-white badge-success' : 'badge badge-pill badge-warning'" class="text-white">
+                                        {{value == 1 ? 'Aktif' : 'Tidak Aktif'}}
+                                    </div>
+                                </span>
+                                <select class="form-control" *ngIf="editing[rowIndex + '-aktif']" (blur)="editing[rowIndex + '-aktif'] = false" (change)="updateValue($event, 'aktif', rowIndex)" [value]="value">
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
+                                </select>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Opsi" prop="id" maxWidth=80 [frozenRight]="true" class="text-center">
+                            <ng-template ngx-datatable-cell-template let-value="value">
+                                <button class="btn btn-sm btn-pill btn-warning" (click)="updateByPage(value)" type="button">
+                                    <div class="text-white">Ubah</div>
+                                </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Peringatan!!!</h4>
+                <button type="button" class="close" (click)="smModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus data ini ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="smModal.hide()">Batal</button>
+                <button type="button" class="btn btn-danger" (click)="delete()">Hapus</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #modalBantuan="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Bantuan</h4>
+                <button type="button" class="close" (click)="modalBantuan.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Lokasi praktek berguna untuk menentukan data perawatan pasien anda berada di tempat praktek anda
+                    sendiri, atau anda sendang praktek di rumah sakit, dari data ini pasien dapat dikelompokkan
+                    berdasarkan tempat praktek</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modalBantuan.hide()">Batal</button>
+                <!-- <button type="button" class="btn btn-danger" (click)="delete()">Hapus</button> -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

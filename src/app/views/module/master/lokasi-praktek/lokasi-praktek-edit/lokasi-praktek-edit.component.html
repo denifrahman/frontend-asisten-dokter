@@ -1,0 +1,112 @@
+<ngx-spinner></ngx-spinner>
+<div class="animated fadeIn">
+    <ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
+    <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Help'"></ng-keyboard-shortcuts-help>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-add"></i>Tambah Lokasi Praktek
+                    <div class="card-header-actions">
+                        <button type="button" class="card-header-action btn btn-link btn-setting"><i
+                                class="icon-settings"></i></button>
+                        <button type="button" class="card-header-action btn btn-link btn-minimize"
+                            (click)="toggleCollapse()"><i class={{iconCollapse}}></i></button>
+                        <button type="button" class="card-header-action btn btn-link btn-close"><i
+                                class="icon-close"></i></button>
+                    </div>
+                </div>
+                <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed"
+                    class="card-body">
+                    <form [formGroup]="dataForm" (submit)="update()">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="postal-code">Nama</label>
+                                    <input #nama
+                                        [ngClass]="{'is-valid':dataForm.get('nama').valid, 'is-invalid':dataForm.get('nama').invalid}"
+                                        type="text" formControlName="nama" placeholder="Nama Tempat Praktek"
+                                        class="form-control" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="postal-code">Keterangan</label>
+                                    <input #keterangan type="text" formControlName="keterangan" placeholder="Keterangan"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="city">Jam Buka</label>
+                                    <input #jam_buka type="text" class="form-control" formControlName="jam_buka"
+                                        [ngxTimepicker]="jam_buka" [format]=24>
+                                    <ngx-material-timepicker #jam_buka></ngx-material-timepicker>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="postal-code">Jam Tutup</label>
+                                    <input #jam_tutup type="text" class="form-control" formControlName="jam_tutup"
+                                        [ngxTimepicker]="jam_tutup" [format]=24>
+                                    <ngx-material-timepicker #jam_tutup></ngx-material-timepicker>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <label for="city">Provinsi</label>
+                                    <ng-select #provinsi [items]="dataProvinsi" formControlName="id_provinsi"
+                                        (change)="onchageProvince($event)" bindLabel="province" bindValue="province_id">
+                                    </ng-select>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="city">Kota</label>
+                                    <ng-select #kota [items]="dataKota" formControlName="id_kota" bindLabel="city_name"
+                                        (change)="onchageCity($event)" bindValue="city_id">
+                                    </ng-select>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="city">Kecamatan</label>
+                                    <ng-select #kecamatan [items]="dataKecamatan" formControlName="id_kecamatan"
+                                        class="form-select" bindLabel="subdistrict_name" bindValue="subdistrict_id">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="switch switch-label switch-pill switch-success">
+                                        <input ngModel formControlName="aktif" [checked]="aktif"
+                                            (change)="change(dataForm.value.aktif)" class="switch-input"
+                                            type="checkbox">
+                                        <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions float-right">
+                            <button class="btn btn-secondary" (click)="goBack()" type="button">Batal</button>
+                            <button type="submit" [disabled]="dataForm.invalid" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal title</h4>
+                <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="lgModal.hide()">Batal</button>
+                <button type="button" class="btn btn-primary">Simpan</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

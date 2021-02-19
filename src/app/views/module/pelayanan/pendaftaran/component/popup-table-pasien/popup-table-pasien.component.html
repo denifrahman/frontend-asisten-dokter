@@ -1,0 +1,139 @@
+<div class="card">
+    <div class="card-header"><strong>Pilih Pasien</strong></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div [popover]="popTemplateHtml" [isOpen]="isOpen" (click)="isOpen = !isOpen" placement="bottom">
+                    <div class="input-group">
+                        <input class="form-control form-control-sm uppercase"value="{{selected.nama == '-' ? 'klik disini dan pilih pasien': selected.nama}}" placeholder="klik disini dan pilih pasien" size="16" type="text" readonly>
+                        <span class="input-group-append">
+                            <button class="btn btn-secondary btn-sm" (click)="isOpen = !isOpen" type="button"><i class="fa fa-arrow-down"></i></button>
+                            <button class="btn btn-primary btn-sm" (click)="tambah()" type="button"><i class="fa fa-plus-circle"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 border-top bg-light">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-sm-3"><b>No. RM</b></div>
+
+                                <div class="col-sm-9 text-muted">{{selected.no_rekamedis}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 border-top bg-light">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-sm-3"><b>Nama</b></div>
+
+                                <div class="col-sm-9 text-muted uppercase">{{selected.nama}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 border-top bg-light">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-sm-3"><b>Kelamin</b></div>
+
+                                <div class="col-sm-9 text-muted">{{selected.jenis_kelamin}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 border-top bg-light">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-sm-3"><b>Tgl</b></div>
+
+                                <div class="col-sm-9 text-muted">{{selected.tanggal_lahir}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 border-top bg-light">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-sm-3"><b>Usia</b></div>
+
+                                <div class="col-sm-9 text-muted">{{selected.usia}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 border-top bg-light">
+                            <div class="row mt-1 mb-1">
+                                <div class="col-sm-3"><b>Gol Darah</b></div>
+                                <div class="col-sm-9 text-muted">{{selected.golongan_darah}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-sm btn-outline-warning float-right mt-2 ml-1" (click)="findOneById()" [disabled]="selected.nama == '-' "><i class="fa fa-pencil"></i> Ubah</button>
+            <button class="btn btn-sm btn-danger float-right mt-2" (click)="resetFormPasien()" type="reset"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+    </div>
+</div>
+<ng-template #popTemplateHtml>
+    <!-- <div class="row"> -->
+    <div class="col-12">
+        <div class="card-header">
+            <div class="input-group">
+                <input class="form-control form-control-sm" placeholder="Cari ..." type="search" (keypress)="filter($event)" [(ngModel)]="page.q">
+                <span class="input-group-append">
+                    <button class="btn btn-outline-success btn-sm" (click)="filter('find')" type="submit">Cari</button>
+                </span>
+            </div>
+        </div>
+        <!-- <div class="card-body"> -->
+        <ngx-datatable #myTable class="material expandable" [rows]="rows" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarH]="true" [loadingIndicator]="loading" [selectionType]="SelectionType.single" [externalPaging]="true" [count]="[count]" [offset]="page.offset" (select)="onSelect($event)" [limit]="page.limit" (page)="pageChange($event)">
+            <ngx-datatable-column name="No" maxWidth=10>
+                <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex">
+                    {{page.offset + rowIndex + 1 | number}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Nama" prop="nama">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Telpon" prop="no_telpon">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Jenis Kelamin" prop="jenis_kelamin">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Golongan Darah" prop="golongan_darah">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Identitas" prop="jenis_identitas">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="No Identitas" prop="no_identitas">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Status" prop="aktif" [frozenRight]="true">
+                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                    <div [ngClass]="value == 1 ? 'badge badge-pill text-white badge-success' : 'badge badge-pill badge-warning'" class="text-white">
+                        {{value == 1 ? 'Aktif' : 'Tidak Aktif'}}
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+        <!-- </div> -->
+    </div>
+    <!-- </div> -->
+</ng-template>

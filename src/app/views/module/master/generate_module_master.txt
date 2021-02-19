@@ -1,0 +1,13 @@
+ng g c /views/module/master/pekerjaan/pekerjaan-list --module=/views/module/master/master.module.ts
+ng g c /views/module/master/pendidikan/pendidikan-list --module=/views/module/master/master.module.ts
+ng g c /views/module/master/pendidikan/pendidikan-edit --module=/views/module/master/master.module.ts
+ng g c /views/module/master/shift/shift-edit --module=/views/module/master/master.module.ts
+ng g c /views/module/master/shift/shift-list --module=/views/module/master/master.module.ts
+ng g c /views/module/master/unit/unit-list --module=/views/module/master/master.module.ts
+ng g c /views/module/master/unit/unit-edit --module=/views/module/master/master.module.ts
+ng g c /views/module/master/user/user-edit --module=/views/module/master/master.module.ts
+ng g c /views/module/master/user/user-list --module=/views/module/master/master.module.ts
+ng g c /views/module/master/cabang/cabang-list --module=/views/module/master/master.module.ts
+ng g c /views/module/master/cabang/cabang-add --module=/views/module/master/master.module.ts
+ng g c /views/module/master/cabang/cabang-edit --module=/views/module/master/master.module.ts
+

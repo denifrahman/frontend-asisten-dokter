@@ -1,0 +1,126 @@
+<ngx-spinner></ngx-spinner>
+<div class="animated fadeIn">
+    <ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
+    <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Help'"></ng-keyboard-shortcuts-help>
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="dataForm" (submit)="onSave()">
+                <div class="card">
+                    <div class="card-header"><strong>Pendaftaran Pasien</strong> Baru </div>
+                    <div class="card-body">
+                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="text-input">Nama</label>
+                                                    <div class="col-md-10">
+                                                        <input #nama [ngClass]="{'is-valid':dataForm.get('nama').valid, 'is-invalid': dataForm.get('nama').invalid && dataForm.get('nama').dirty}" type="text" formControlName="nama" class="form-control form-control-sm uppercase" placeholder="Nama" required>
+                                                        <!-- <span class="help-block">This is a help text</span> -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="inline-radios">Jenis Kelamin</label>
+                                                    <div class="col-md-10 col-form-label">
+                                                        <div class="form-check form-check-inline mr-1" id="inline-radios">
+                                                            <input formControlName="jenis_kelamin" [checked]="dataForm.get('jenis_kelamin').value == 'L'" class="form-check-input" type="radio" value="L">
+                                                            <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline mr-1">
+                                                            <input formControlName="jenis_kelamin" [checked]="dataForm.get('jenis_kelamin').value == 'P'" class="form-check-input" type="radio" value="P">
+                                                            <label class="form-check-label" for="inlineRadio2" value="P">Perempuan</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="password-input">Tempat Lahir</label>
+                                                    <div class="col-md-10">
+                                                        <input #tempat_lahir [ngClass]="{'is-valid':dataForm.get('tempat_lahir').valid, 'is-invalid': dataForm.get('tempat_lahir').invalid && dataForm.get('tempat_lahir').dirty}" formControlName="tempat_lahir" class="form-control form-control-sm uppercase" placeholder="Kota lahir" type="text">
+                                                        <!-- <span class="help-block">Please enter a complex password</span> -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="date-input">Tanggal Lahir</label>
+                                                    <div class="col-md-6">
+                                                        <input #tanggal_lahir [ngClass]="{'is-valid':dataForm.get('tanggal_lahir').valid, 'is-invalid': dataForm.get('tanggal_lahir').invalid && dataForm.get('tanggal_lahir').dirty}" formControlName="tanggal_lahir" class="form-control form-control-sm" placeholder="tanggal lahir" type="date">
+                                                        <!-- <span class="help-block">Please enter a valid date</span> -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="select1">Jenis Identitas</label>
+                                                    <div class="col-md-6">
+                                                        <select #jenis_identitas formControlName="jenis_identitas" class="form-control form-control-sm">
+                                                            <option value="KTP">KTP</option>
+                                                            <option value="SIM">SIM</option>
+                                                            <option value="PASSPORT">PASSPORT</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="email-input">No. Identitas</label>
+                                                    <div class="col-md-10">
+                                                        <input #no_identitas [ngClass]="{'is-valid':dataForm.get('no_identitas').valid, 'is-invalid': dataForm.get('no_identitas').invalid && dataForm.get('no_identitas').dirty}" formControlName="no_identitas" class="form-control form-control-sm" placeholder="No. Identitas" type="text">
+                                                        <!-- <span class="help-block">Please enter your email</span> -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="email-input">Pekerjaan</label>
+                                                    <div class="col-md-10">
+                                                        <input #pekerjaan [ngClass]="{'is-valid':dataForm.get('pekerjaan').valid, 'is-invalid': dataForm.get('pekerjaan').invalid && dataForm.get('pekerjaan').dirty}" formControlName="pekerjaan" class="form-control form-control-sm" placeholder="Pekerjaan" type="text">
+                                                        <!-- <span class="help-block">Please enter your email</span> -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="email-input">No. Handphone</label>
+                                                    <div class="col-md-10">
+                                                        <input #no_telpon [ngClass]="{'is-valid':dataForm.get('no_telpon').valid, 'is-invalid': dataForm.get('no_telpon').invalid && dataForm.get('no_telpon').dirty}" formControlName="no_telpon" class="form-control form-control-sm" placeholder="No. Handphone" type="text">
+                                                        <!-- <span class="help-block">Please enter your email</span> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+
+                                                <div class="form-group row mb-0 "><label class="col-md-2 col-form-label">Provinsi</label>
+                                                    <div class="col-md-10">
+                                                        <ng-select #provinsi [items]="dataProvinsi" formControlName="id_provinsi" (change)="getCity($event)" bindLabel="province" bindValue="province_id">
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label">Kota</label>
+                                                    <div class="col-md-10">
+                                                        <ng-select #kota [items]="dataKota" formControlName="id_kota" (change)="getSubdistric($event)" bindLabel="city_name" bindValue="city_id">
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label">Kecamatan</label>
+                                                    <div class="col-md-10">
+                                                        <ng-select #kecamatan [items]="dataKecamatan" formControlName="id_kecamatan" class="form-select" bindLabel="subdistrict_name" bindValue="subdistrict_id">
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label" for="textarea-input">Alamat</label>
+                                                    <div class="col-md-10">
+                                                        <textarea #alamat [ngClass]="{'is-valid':dataForm.get('alamat').valid, 'is-invalid': dataForm.get('alamat').invalid && dataForm.get('alamat').dirty}" formControlName="alamat" class="form-control form-control-sm" placeholder="Alamat lengkap" rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label">Golongan Darah</label>
+                                                    <div class="col-md-10 col-form-label">
+                                                        <div class="form-check form-check-inline mr-1"><input formControlName="golongan_darah" [checked]="dataForm.get('golongan_darah').value == 'A'" class="form-check-input" type="radio" value="A"><label class="form-check-label" for="radio1">A</label></div>
+                                                        <div class="form-check form-check-inline mr-1"><input formControlName="golongan_darah" [checked]="dataForm.get('golongan_darah').value == 'B'" class="form-check-input" type="radio" value="B"><label class="form-check-label" for="radio2">B</label></div>
+                                                        <div class="form-check form-check-inline mr-1"><input formControlName="golongan_darah" [checked]="dataForm.get('golongan_darah').value == 'O'" class="form-check-input" type="radio" value="O"><label class="form-check-label" for="radio3">O</label></div>
+                                                        <div class="form-check form-check-inline mr-1"><input formControlName="golongan_darah" [checked]="dataForm.get('golongan_darah').value == 'AB'" class="form-check-input" type="radio" value="AB"><label class="form-check-label" for="radio3">AB</label></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-0"><label class="col-md-2 col-form-label">Aktif</label>
+                                                    <div class="col-md-10 col-form-label">
+                                                        <label class="switch switch-label switch-pill switch-success">
+                                                            <input ngModel formControlName="aktif" [checked]="dataForm.get('aktif').value" class="switch-input" type="checkbox">
+                                                            <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <button class="btn btn-sm btn-danger" (click)="goBack()" type="reset"><i class="fa fa-ban"></i> Kembali</button>
+                            <button class="btn btn-sm btn-primary" [disabled]="dataForm.invalid" type="submit"><i class="fa fa-dot-circle-o"></i> Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

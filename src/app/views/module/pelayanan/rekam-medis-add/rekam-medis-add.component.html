@@ -1,0 +1,28 @@
+<div class="animated fadeIn">
+    <ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
+    <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Help'"></ng-keyboard-shortcuts-help>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-add"></i>Ubah Data Asisten
+                    <div class="card-header-actions">
+                        <button type="button" class="card-header-action btn btn-link btn-setting"><i
+                                class="icon-settings"></i></button>
+                        <button type="button" class="card-header-action btn btn-link btn-minimize"
+                            (click)="toggleCollapse()"><i class={{iconCollapse}}></i></button>
+                        <button type="button" class="card-header-action btn btn-link btn-close"><i
+                                class="icon-close"></i></button>
+                    </div>
+                </div>
+                <div [collapse]="isCollapsed" class="card-body">
+                    <form [formGroup]="dataForm" (submit)="add()">
+                        <div #jantung class="card-body">
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

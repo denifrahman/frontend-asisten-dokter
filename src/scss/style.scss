@@ -1,0 +1,204 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+@import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
+
+.ag-theme-alpine {
+    @include ag-theme-alpine((odd-row-background-color: #CFD8DC));
+}
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/grid';
+
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+// @import "~@ng-select/ng-select/themes/ant.design.theme.css";
+.ng-select .ng-select-container .ng-value-container {
+    align-items: center;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.ng-select .ng-select-container .ng-value-container {
+    align-items: stretch;
+    /* padding: .4375em 0; */
+    border-top: 3px solid transparent;
+}
+
+.ng-select .ng-select-container {
+    color: rgba(0, 0, 0, 0.87);
+    align-items: baseline;
+    min-height: 40px;
+}
+
+.ng-select {
+    padding-bottom: 0.25em;
+}
+
+// .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+//     line-height: 2em;
+//     min-height: 2em;
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     padding: 0 16px;
+//     text-decoration: none;
+//     position: relative;
+//     color: rgba(0,0,0,0.87);
+//     text-align: left;
+// }
+
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.css';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import '~ngx-toastr/toastr-bs4-alert';
+@import '~font-awesome/css/font-awesome.css';
+
+.ngx-datatable.material {
+    .datatable-body {
+        .progress-linear {
+            position: fixed !important;
+        }
+    }
+}
+
+.app-body {
+    margin-top: 0px;
+}
+
+.datatable-body-cell {
+    overflow-y: visible !important;
+    overflow-x: visible !important;
+}
+
+.ngx-datatable {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    color: #fff;
+    background: #0c465a;
+}
+
+.sidebar .nav-dropdown.open {
+    background: #0a3949;
+}
+
+.sidebar .nav-link.active {
+    color: #fff;
+    background: #2084ab;
+}
+
+.sidebar .nav-link.active .nav-icon {
+    color: #ffffff;
+}
+
+.sidebar .nav-title {
+    padding: 0.75rem 1rem;
+    font-size: 80%;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    background: #12566f;
+}
+
+.popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: $zindex-popover;
+    display: block;
+    max-width: 98%;
+    width: 100%;
+    // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
+    // So reset our font and text properties to avoid inheriting weird values.
+    @include reset-text();
+    @include font-size($popover-font-size);
+    // Allow breaking very long words so they don't overflow the popover's bounds
+    word-wrap: break-word;
+    background-color: $popover-bg;
+    background-clip: padding-box;
+    border: $popover-border-width solid $popover-border-color;
+    @include border-radius($popover-border-radius);
+    @include box-shadow($popover-box-shadow);
+
+    .arrow {
+        position: absolute;
+        display: block;
+        width: $popover-arrow-width;
+        height: $popover-arrow-height;
+        margin: 0 $border-radius-lg;
+
+        &::before,
+        &::after {
+            position: absolute;
+            display: block;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+    }
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+ngx-datatable.bootstrap .datatable-body .datatable-body-row.active {
+    background-color: #ccd4fb;
+    color: #fff;
+  }
+  
+  .ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
+  .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
+    color: #ffff;
+    background: #ccd4fb;
+  }
+  
+  .ngx-datatable.material.single-selection .datatable-body-row.active:hover,
+  .ngx-datatable.material.single-selection .datatable-body-row.active:hover .datatable-row-group,
+  .ngx-datatable.material.multi-selection .datatable-body-row.active:hover,
+  .ngx-datatable.material.multi-selection .datatable-body-row.active:hover .datatable-row-group,
+  .ngx-datatable.material.multi-click-selection .datatable-body-row.active:hover,
+  .ngx-datatable.material.multi-click-selection .datatable-body-row.active:hover .datatable-row-group {
+    background-color: #ccd4fb;
+    color: #ffff;
+  }
+  
+  // .ngx-datatable.material.single-selection .datatable-body-row.active,
+  // .ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group,
+  // .ngx-datatable.material.multi-selection .datatable-body-row.active,
+  // .ngx-datatable.material.multi-selection .datatable-body-row.active .datatable-row-group,
+  // .ngx-datatable.material.multi-click-selection .datatable-body-row.active,
+  // .ngx-datatable.material.multi-click-selection .datatable-body-row.active .datatable-row-group {
+  //   background-color: #ffe1e1;
+  //   color: #ffff;
+  // }
+  
+  .ngx-datatable.material.single-selection .datatable-body-row.active,
+  .ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group,
+  .ngx-datatable.material.multi-selection .datatable-body-row.active,
+  .ngx-datatable.material.multi-selection .datatable-body-row.active .datatable-row-group,
+  .ngx-datatable.material.multi-click-selection .datatable-body-row.active,
+  .ngx-datatable.material.multi-click-selection .datatable-body-row.active .datatable-row-group {
+    background-color: #ffffff;
+    color: #ffff;
+  }
+  

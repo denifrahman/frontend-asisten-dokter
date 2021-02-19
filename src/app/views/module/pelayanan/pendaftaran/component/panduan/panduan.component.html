@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-header"><i class="fa fa-warning text-warning"></i>Panduan
+        <div class="card-header-actions">
+            <button type="button" class="card-header-action btn btn-link btn-minimize" (click)="toggleCollapse()"><i class={{iconCollapse}}></i></button>
+        </div>
+    </div>
+    <div [collapse]="isCollapsed" class="card-body bg-warning">
+        <b> Form Pendaftaran pasien</b>
+        <p>Pilih pasien terlebih dahulu, jika pasien baru silahkan tambahkan pasien terlebih dahulu.</p>
+    </div>
+</div>

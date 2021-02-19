@@ -1,0 +1,6 @@
+{
+    "/asistendokter": {
+      "target": "http://localhost/asistendokter/",
+      "secure": false
+    }
+  }

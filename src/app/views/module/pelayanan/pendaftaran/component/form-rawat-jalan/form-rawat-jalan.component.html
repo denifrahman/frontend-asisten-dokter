@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="card-body">
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <div><label >Unit</label>
+                    <ng-select #unit [items]="dataUnit"  class="form-select" bindLabel="nama" bindValue="id">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div><label >Tanggal masuk</label>
+                    <label class="form-control">{{today | date : 'dd-MMM-yyyy HH:mm'}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <div><label >Dokter</label>
+                    <ng-select #unit [items]="dataUnit"  class="form-select" bindLabel="nama" bindValue="id">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div><label >Penjamin</label>
+                    <ng-select #unit [items]="dataUnit"  class="form-select" bindLabel="nama" bindValue="id">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="card-footer"> -->
+        <button class="btn btn-sm btn-primary float-right ml-2" type="submit"><i class="fa fa-dot-circle-o"></i> Submit</button>
+        <button class="btn btn-sm btn-danger float-right" type="reset"><i class="fa fa-ban"></i> Reset</button>
+        <!-- </div> -->
+    </div>
+</div>
